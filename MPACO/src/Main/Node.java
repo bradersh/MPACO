@@ -8,17 +8,17 @@ import java.util.*;
  */
 public class Node {
     
-    private Map<Integer,ArrayList<Integer>> nodeListMap; //An array list provided by java util 
+    private ArrayList<Edge> nodeListMap; //An array list provided by java util 
     
     public Node(int vertices){ //Constructor for the class, creating an empty graph with the given vertices(nodes) 
-        nodeListMap = new HashMap<>(); //New Hash map taking an input as an integer 
+        nodeListMap = new ArrayList<>(); //New Hash map taking an input as an integer 
         for(int i=1; i<=vertices; i++){ //Create a graph for the number of vertices(nodes) the user inputs 
-            ArrayList<Integer> neighbouringNodes = new ArrayList<>(); 
-            nodeListMap.put(i, neighbouringNodes); //E.g. for node 1, I have created an arraylist which is called neighbours 
+            ArrayList<Edge> neighbouringNodes = new ArrayList<>(); 
+            nodeListMap.addneighbouringNodes); //E.g. for node 1, I have created an arraylist which is called neighbours 
         }
     }
     
-    public void addEdges(int v, int n){ //Function to created the edges using the inputted veticies(nodes)
+    public void addNeighbour(int v, int n){ //Function to created the edges using the inputted veticies(nodes)
         if(v > nodeListMap.size() || n > nodeListMap.size()){ //Check that the input is within the range of vertices(nodes)
             return;
         }
