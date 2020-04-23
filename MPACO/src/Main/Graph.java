@@ -32,7 +32,7 @@ public class Graph {
         }
         
         aMatrix[source][destination] = valueAdded;
-        aMatrixSet[destination][source] = true;
+        aMatrixSet[source][destination] = true;
         
         if (!directed){
             aMatrix[destination][source] = valueAdded;
@@ -48,8 +48,8 @@ public class Graph {
             valueAdded = 1;
         }
         
-        aMatrix[destination][source] = valueAdded;
-        aMatrixSet[destination][source] = true;
+        aMatrix[source][destination] = valueAdded;
+        aMatrixSet[source][destination] = true;
         
         if (!directed){
             aMatrix[destination][source] = valueAdded;
@@ -58,7 +58,7 @@ public class Graph {
     }
     
     public void printAdjMartix(){
-        for (int i = 0; i <vertices; i++){
+        for (int i = 0; i < vertices; i++){
             for (int u = 0; u < vertices; u++){ //This ensures only value that are set will be printed
                 if (aMatrixSet[i][u]) 
                     System.out.format("%8s", String.valueOf(aMatrix[i][u]));
