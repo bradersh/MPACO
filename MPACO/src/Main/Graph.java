@@ -43,9 +43,9 @@ public class Graph {
         graph.addEdge(8, 9, 30);
         graph.addEdge(8, 1, 9);
         
-        List<Edge> adj = graph.getAdjacent(1);
+        List<Edge> adjacent = graph.getAdjacent(5);
         
-        for (Edge edge : adj){
+        for (Edge edge : adjacent){
             System.out.println(edge);
         }
         
