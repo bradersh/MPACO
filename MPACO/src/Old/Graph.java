@@ -91,14 +91,4 @@ public class Graph {
             return null;
         return aMatrix[source][destination];
     }
-    
-    public HashMap <Integer, Integer> destinationMap(){
-        HashMap<Integer, Integer> destinationMap = new HashMap<>();
-        for (int d = 0; d < aMatrix[source].length; d++){
-            if (aMatrixSet[source][destination]){
-                destinationMap.put(destination, weight);
-            }
-        }
-        return destinationMap;
-    }
 }

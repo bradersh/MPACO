@@ -9,28 +9,29 @@ import java.util.*;
 
 public class Graph {
     
-    private Vertex[] vertices;
+    private Vertex[] vertices; //Contains details about its edges 
     
     public Graph(int s){
-        vertices = new Vertex[s];
+        vertices = new Vertex[s]; //Number of vertices to create the array
         
         for (int i = 0; i < s; i++){
             vertices[i] = new Vertex(i);
         }
     }
     
-    public void addEdge(int s, int d, double weight){
+    public void addEdge(int s, int d, double weight){ //Adding the bidirectional edges along with their weighting
         Edge edge = new Edge(s, d, weight);
         vertices[s].addEdge(edge);
-        vertices[d].addEdge(edge);
+        Edge edge2 = new Edge(d, s, weight);
+        vertices[d].addEdge(edge2);
     }
     
-    public List<Edge> getAdjacent(int s){
+    public List<Edge> getAdjacent(int s){ //Returns a list of the edges 
         return vertices[s].getAdjacent();
     }
     
     public static void main(String[] args){
-        Graph graph = new Graph(10);
+        Graph graph = new Graph(10); //Number of vertices
         
         graph.addEdge(1, 2, 10);
         graph.addEdge(2, 3, 11);
@@ -43,7 +44,7 @@ public class Graph {
         graph.addEdge(8, 9, 30);
         graph.addEdge(8, 1, 9);
         
-        List<Edge> adjacent = graph.getAdjacent(5);
+        List<Edge> adjacent = graph.getAdjacent(3);
         
         for (Edge edge : adjacent){
             System.out.println(edge);
