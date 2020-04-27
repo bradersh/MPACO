@@ -9,7 +9,7 @@ import java.util.*;
 
 public class Graph {
     
-    private Vertex[] vertices; //Contains details about its edges 
+    protected Vertex[] vertices; //Contains details about its edges 
     
     public Graph(int s){
         vertices = new Vertex[s]; //Number of vertices to create the array
@@ -44,7 +44,7 @@ public class Graph {
         graph.addEdge(8, 9, 30);
         graph.addEdge(8, 1, 9);
         
-        List<Edge> adjacent = graph.getAdjacent(3);
+        List<Edge> adjacent = graph.getAdjacent(2);
         
         for (Edge edge : adjacent){
             System.out.println(edge);
