@@ -29,6 +29,7 @@ public class Simulation implements Runnable{
     
     private void init(){
         display = new Display(title, width, height);
+        Assets.init();
 
     }
     
@@ -46,7 +47,7 @@ public class Simulation implements Runnable{
         g.clearRect(0, 0, width, height);
         //Draw start
 
-        
+        g.drawImage(Assets.ant, 20, 20, null);
         //Draw end
         
         
