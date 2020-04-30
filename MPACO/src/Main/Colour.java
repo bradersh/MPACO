@@ -20,5 +20,4 @@ public class Colour extends Feature{
         */
         return n;
     }
-    
 }
