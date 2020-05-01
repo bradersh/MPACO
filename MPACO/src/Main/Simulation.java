@@ -33,8 +33,10 @@ public class Simulation implements Runnable{
 
     }
     
+    int x = 0;
+    
     private void tick(){
-        
+        x += 1;
     }
     
     private void render(){
@@ -47,7 +49,7 @@ public class Simulation implements Runnable{
         g.clearRect(0, 0, width, height);
         //Draw start
 
-        g.drawImage(Assets.ant, 20, 20, null);
+        g.drawImage(Assets.ant, x, 20, null);
         //Draw end
         
         
@@ -58,9 +60,33 @@ public class Simulation implements Runnable{
     public void run(){
         init();
         
+        int fps = 60; //Amount of times tick and render method are called every second
+        double timePerTick = 1000000000 / fps; //Maximum amount of time to run tick and render methods to achieve desired 60fps 
+        double delta = 0; //Amount of time until tick and render methods need to be called
+        long now; //Current time of the computer 
+        long lastTime = System.nanoTime(); //Returns the current time of the computer but in nanoseconds
+        long timer = 0; //time until 1 second acheived 
+        int ticks = 0; //How many times tick and render method called in 60 seconds 
+        
         while(running){
-            tick();
-            render();
+            now = System.nanoTime();
+            delta += (now - lastTime) / timePerTick; //amount of time passed since line of code last called to check if tick and render methods need to be called
+            timer += now - lastTime; //Adds to timer value amount of nanoseconds passed since last called code 
+            lastTime = now;
+            
+            if(delta >= 1){ //Will indicate if tick and render are quired to reach 60fps 
+                tick();
+                render();
+                ticks++;
+                delta--;
+            }
+            
+            if(timer >= 1000000000){ //Checks if timer exceeds 1 second, how many ticks occured within that second
+                System.out.println("FPS: " + ticks);
+                ticks = 0;
+                timer = 0;
+            }
+            
         }
         stop();
     }
