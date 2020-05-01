@@ -20,6 +20,9 @@ public class Simulation implements Runnable{ //Runnable allows the game to run o
     private BufferStrategy bufferS; 
     private Graphics g;
     
+    //Declares it as a state but can be initialised to any type of state
+    private State simulationState;  
+    private State settingsState;
     
     public Simulation(String title, int width, int height){
         this.width = width;
@@ -30,11 +33,15 @@ public class Simulation implements Runnable{ //Runnable allows the game to run o
     private void init(){
         display = new Display(title, width, height);
         Assets.init(); //Loads in all of the sprite sheet objects
-
+        
+        simulationState = new SimulationState();
+        settingsState = new SettingsState();
+        State.setState(simulationState);
     }
     
     private void tick(){ //Responsible for the ticks everything runs off
-        
+        if(State.getState() != null)//Prevents any big errors incase the state doesn't exist
+            State.getState().tick();
     }
     
     private void render(){ //Responsible for rendering (Drawing) all of the graphics to the screen
@@ -47,7 +54,8 @@ public class Simulation implements Runnable{ //Runnable allows the game to run o
         g.clearRect(0, 0, width, height); //Clears the rectangle 
         
         //Draw start
-        g.drawImage(Assets.ant, 10, 20, null);
+        if(State.getState() != null)//Prevents any big errors incase state = null
+            State.getState().render(g);
         //Draw end
         
         bufferS.show(); //Displays the buffers to the screen now that drawing is done
