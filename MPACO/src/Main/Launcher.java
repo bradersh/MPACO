@@ -7,8 +7,8 @@ package Main;
 public class Launcher {
     
     public static void main(String[] args){
-        Simulation simulation = new Simulation("MPACO", 500, 500);
-        simulation.start();
+        Simulation simulation = new Simulation("MPACO", 800, 800); //Creates the simulation object
+        simulation.start(); //Starts the simulation loop
     }
     
 }

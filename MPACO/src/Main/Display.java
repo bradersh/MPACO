@@ -39,7 +39,7 @@ public class Display {
         frame.pack();
     }
     
-    public Canvas getCanvas(){
+    public Canvas getCanvas(){ //Allows access to the canvas from other classes
         return canvas;
     }
 }

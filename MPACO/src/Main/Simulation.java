@@ -10,14 +10,14 @@ import java.util.logging.Logger;
  *
  * @author BradleyH
  */
-public class Simulation implements Runnable{
+public class Simulation implements Runnable{ //Runnable allows the game to run on a thread
     
     private boolean running = false;
     private Display display;
     public int width, height;
     public String title;
-    private Thread thread;
-    private BufferStrategy bufferS;
+    private Thread thread; //The thread for the program to run on 
+    private BufferStrategy bufferS; 
     private Graphics g;
     
     
@@ -29,36 +29,33 @@ public class Simulation implements Runnable{
     
     private void init(){
         display = new Display(title, width, height);
-        Assets.init();
+        Assets.init(); //Loads in all of the sprite sheet objects
 
     }
     
-    int x = 0;
-    
-    private void tick(){
-        x += 1;
+    private void tick(){ //Responsible for the ticks everything runs off
+        
     }
     
-    private void render(){
-        bufferS = display.getCanvas().getBufferStrategy();
+    private void render(){ //Responsible for rendering (Drawing) all of the graphics to the screen
+        bufferS = display.getCanvas().getBufferStrategy(); //This uses buffers to draw the image to the screen to prevent flickering 
         if(bufferS == null){
-            display.getCanvas().createBufferStrategy(3);
-            return;
+            display.getCanvas().createBufferStrategy(3);//Sets the number of buffers to 3 if it isnt already set
+            return; //Leave the method to prevent errors 
         }
         g = bufferS.getDrawGraphics();
-        g.clearRect(0, 0, width, height);
+        g.clearRect(0, 0, width, height); //Clears the rectangle 
+        
         //Draw start
-
-        g.drawImage(Assets.ant, x, 20, null);
+        g.drawImage(Assets.ant, 10, 20, null);
         //Draw end
         
-        
-        bufferS.show();
-        g.dispose();
+        bufferS.show(); //Displays the buffers to the screen now that drawing is done
+        g.dispose(); //Graphics object is cleard properly 
     }
     
     public void run(){
-        init();
+        init(); //Calls the init method only once to initialise the graphics 
         
         int fps = 60; //Amount of times tick and render method are called every second
         double timePerTick = 1000000000 / fps; //Maximum amount of time to run tick and render methods to achieve desired 60fps 
@@ -68,7 +65,7 @@ public class Simulation implements Runnable{
         long timer = 0; //time until 1 second acheived 
         int ticks = 0; //How many times tick and render method called in 60 seconds 
         
-        while(running){
+        while(running){ //The simulation loop
             now = System.nanoTime();
             delta += (now - lastTime) / timePerTick; //amount of time passed since line of code last called to check if tick and render methods need to be called
             timer += now - lastTime; //Adds to timer value amount of nanoseconds passed since last called code 
@@ -91,20 +88,20 @@ public class Simulation implements Runnable{
         stop();
     }
     
-    public synchronized void start(){
+    public synchronized void start(){ //Start the thread (Synchronized is to be used when working directly with threads)
         if(running)
-            return;
-        running = true;
-        thread = new Thread(this);
-        thread.start();
+            return; //Prevents this loop occuring if running is already true 
+        running = true; //Sets running value to true to allow the simulation loop to begin 
+        thread = new Thread(this); //Passes this class (simulation) in the thread
+        thread.start(); //Calls the run method
     }
     
-    public synchronized void stop(){
+    public synchronized void stop(){ //Stop the thread
         if(!running)
-            return;
-        running = false;
+            return; //Prevents the program stopping twice if it is already stopped
+        running = false; //Sets running value to false to stop the simulation loop
         try {
-            thread.join();
+            thread.join(); //Stops the thread, surrounded with a try catch statement
         } catch (InterruptedException ex) {
             Logger.getLogger(Simulation.class.getName()).log(Level.SEVERE, null, ex);
         }
