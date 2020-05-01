@@ -7,7 +7,7 @@ import java.util.*;
  * @author BradleyH
  */
 
-public class Vertex {
+public class Vertex extends Location {
     
     private int id;
     private List<Edge> edgeList = new ArrayList<>();
@@ -21,6 +21,10 @@ public class Vertex {
         this.id = id;
         Feature feature = new Colour();
         featureList.add(feature);
+    }
+    
+    public void tick(){
+        evaporate();
     }
     
     public void addEdge(Edge edge){

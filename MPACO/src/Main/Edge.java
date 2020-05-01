@@ -7,6 +7,7 @@ package Main;
 
 public class Edge {
     
+    //linked list with a collection of edgesegment  and methods to get segment next to (e.g. vertex) (edge knows about end segment or the whole list) 
     private int source, destination; //Stores the two nodes whcih share an edge 
     private double weight; //This will represent the "distance" between each node which the ants will travel
     
