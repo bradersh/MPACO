@@ -13,10 +13,6 @@ public class Vertex extends Location {
     private List<Edge> edgeList = new ArrayList<>();
     private List<Feature> featureList = new ArrayList<>();
     
-    public int getId(){
-        return id;
-    }
-    
     public Vertex(int id){
         this.id = id;
         Feature feature = new Colour();
@@ -25,6 +21,15 @@ public class Vertex extends Location {
     
     public void tick(){
         evaporate();
+    }
+    
+    public void render(){
+        
+    }
+    
+        
+    public int getId(){
+        return id;
     }
     
     public void addEdge(Edge edge){

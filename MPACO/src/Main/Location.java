@@ -7,6 +7,7 @@ package Main;
 public abstract class Location {
     
     private int pheremone = 0;
+    protected float x, y;
     
     public void deposit(){
         pheremone++;
@@ -16,8 +17,9 @@ public abstract class Location {
         pheremone--;
     }
     
-    //get pheremone method 
-    
+    public int getPheremone(){
+        return pheremone;
+    }
     
     //get adjacent locations
     

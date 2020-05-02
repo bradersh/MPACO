@@ -1,15 +1,20 @@
 package Main;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author BradleyH
  */
 public class EdgeSegment extends Location {
-    //array of segments
-    //each ant knows which segment its on
-    //array exists with the edge 
+    
+    public EdgeSegment(){
+        List<EdgeSegment> SegmentList = new ArrayList<>();
+    }
     
     public void tick(){
         evaporate();
     }
+    
 }

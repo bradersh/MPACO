@@ -17,6 +17,7 @@ public class SimulationState extends State {
     @Override
     public void tick() {
         ant.tick();
+        
     }
 
     @Override

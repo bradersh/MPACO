@@ -20,7 +20,7 @@ public class Ant extends Entity{
     }
     
     public void tick(){
-        deposit();
+        //deposit();
         //collection of possible route to take 
         //decide route to take 
         //move to location 
@@ -33,6 +33,6 @@ public class Ant extends Entity{
     }
     
     public void deposit(){
-        location.deposit(); 
+        //location.deposit(); 
     }
 }
