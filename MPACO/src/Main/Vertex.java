@@ -11,7 +11,8 @@ import java.util.*;
 public class Vertex extends FeatureEntity {
     
     private int id;
-    private List<Edge> edgeList = new ArrayList<>();
+    private ArrayList<Edge> edgeList = new ArrayList<>();
+    private ArrayList<Ant> antList = new ArrayList<>();
     //private List<Feature> featureList = new ArrayList<>();
     
     public Vertex(float x, float y, int feature){
@@ -35,7 +36,7 @@ public class Vertex extends FeatureEntity {
         return id;
     }
     
-    public List<Edge> getAdjacent(){
+    public ArrayList<Edge> getAdjacent(){
         return edgeList;
     }
     
