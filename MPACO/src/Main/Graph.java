@@ -1,5 +1,6 @@
 package Main;
 
+import java.awt.Graphics;
 import java.util.*;
 
 /**
@@ -15,22 +16,9 @@ public class Graph {
         vertices = new Vertex[s]; //Number of vertices to create the array
         
         for (int i = 0; i < s; i++){
-            vertices[i] = new Vertex(i);
+            vertices[i] = new Vertex(1.0f, 1.0f, i);
         }
-    }
-    
-    public void addEdge(int s, int d, double weight){ //Adding the bidirectional edges along with their weighting
-        Edge edge = new Edge(s, d, weight);
-        vertices[s].addEdge(edge);
-        Edge edge2 = new Edge(d, s, weight);
-        vertices[d].addEdge(edge2);
-    }
-    
-    public List<Edge> getAdjacent(int s){ //Returns a list of the edges 
-        return vertices[s].getAdjacent();
-    }
-    
-    public static void main(String[] args){
+        
         Graph graph = new Graph(10); //Number of vertices
         
         graph.addEdge(1, 2, 10);
@@ -49,7 +37,24 @@ public class Graph {
         for (Edge edge : adjacent){
             System.out.println(edge);
         }
+    }
+    
+    public void addEdge(int s, int d, double weight){ //Adding the bidirectional edges along with their weighting
+        Edge edge = new Edge(s, d, weight);
+        vertices[s].addEdge(edge);
+        Edge edge2 = new Edge(d, s, weight);
+        vertices[d].addEdge(edge2);
+    }
+    
+    public List<Edge> getAdjacent(int s){ //Returns a list of the edges 
+        return vertices[s].getAdjacent();
+    }
+    
+    public void tick(){
         
     }
     
+    public void render(Graphics g){
+        
+    }
 }

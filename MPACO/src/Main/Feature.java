@@ -7,7 +7,4 @@ package Main;
 public abstract class Feature {
     
     abstract int getValue();
-    
-    
-    
 }
