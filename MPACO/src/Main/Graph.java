@@ -46,7 +46,7 @@ public class Graph {
         vertices[d].addEdge(edge2);
     }
     
-    public List<Edge> getAdjacent(int s){ //Returns a list of the edges 
+    public ArrayList<Edge> getAdjacent(int s){ //Returns a list of the edges 
         return vertices[s].getAdjacent();
     }
     

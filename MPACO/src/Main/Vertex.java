@@ -12,8 +12,8 @@ public class Vertex extends FeatureEntity {
     
     private int id;
     private ArrayList<Edge> edgeList = new ArrayList<>();
-    private ArrayList<Ant> antList = new ArrayList<>();
-    //private List<Feature> featureList = new ArrayList<>();
+    private ArrayList<Ant> currentAnts = new ArrayList<>();
+    private List<Feature> featureList = new ArrayList<>();
     
     public Vertex(float x, float y, int feature){
         super(x, y);
@@ -40,9 +40,15 @@ public class Vertex extends FeatureEntity {
         return edgeList;
     }
     
-    /*
+    public ArrayList<Ant> getAnt(){
+        return currentAnts;
+    }
+    
+    public void addAnt(Ant newAnt){
+        currentAnts.add(newAnt);
+    }
+    
     public List<Feature> getFeature(){
         return featureList;
     }
-    */
 }
