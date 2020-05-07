@@ -1,6 +1,7 @@
 package Main;
 
 import java.awt.Graphics;
+import java.io.IOException;
 
 /**
  *
@@ -10,7 +11,7 @@ public class SimulationState extends State {
 
     private Graph graph;
     
-    public SimulationState(){
+    public SimulationState() throws IOException{
         graph = new Graph(5); //Number of vertices
     }
     

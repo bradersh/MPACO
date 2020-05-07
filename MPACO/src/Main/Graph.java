@@ -1,6 +1,9 @@
 package Main;
 
 import java.awt.Graphics;
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -14,23 +17,37 @@ public class Graph {
     private int antFactor = 3;
     private ArrayList<Ant> ants = new ArrayList<Ant>();
     
-    public Graph(int s){
+    public Graph(int s) throws IOException{
         vertices = new Vertex[s]; //Number of vertices to create the array
         
-        for (int i = 0; i < s; i++){
-            vertices[i] = new Vertex(1.0f, 1.0f, i);
+        BufferedReader csvReader = new BufferedReader(new FileReader("src/res/config/vertices.csv"));
+        String row;
+        int i = 0;
+        while ((row = csvReader.readLine()) != null) {
+            String[] data = row.split(",");
+            float x = Float.parseFloat(data[0]); 
+            float y = Float.parseFloat(data[1]); 
+            int feature = Integer.parseInt(data[2]);
+            vertices[i] = new Vertex(x, y, feature);
             for (int k = 0; k < antFactor; k++){
-                Ant tempAnt = new Ant(1.0f, 1.0f, i, vertices[i]);     
+                Ant tempAnt = new Ant(x, y, feature, vertices[i]);     
                 ants.add(tempAnt);
                 vertices[i].addAnt(tempAnt);
             }
+            i++;
         }
+        csvReader.close();
         
-        addEdge(vertices [0], vertices [1], 10);
-        addEdge(vertices [1], vertices [2], 11);
-        addEdge(vertices [1], vertices [3], 18);
-        addEdge(vertices [3], vertices [4], 12);
-        addEdge(vertices [3], vertices [0], 16);
+        csvReader = new BufferedReader(new FileReader("src/res/config/edge.csv"));
+        row = "";
+        while ((row = csvReader.readLine()) != null) {
+            String[] data = row.split(",");
+            int source = Integer.parseInt(data[0]); 
+            int destination = Integer.parseInt(data[1]); 
+            double weight = Double.parseDouble(data[2]);
+            addEdge(vertices [source], vertices [destination], weight);
+        }
+        csvReader.close();   
     }
     
     public void addEdge(Vertex s, Vertex d, double weight){ //Adding the bidirectional edges along with their weighting
