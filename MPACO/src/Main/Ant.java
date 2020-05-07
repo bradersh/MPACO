@@ -54,7 +54,7 @@ public class Ant extends FeatureEntity{
                 chosenEdge.getEdgeSegment(lastIndex).addAnt(this);
                 currentSegment = lastIndex;
             }
-        }
+        }        
         else if(!onLastSegment()){
             chosenEdge.getEdgeSegment(currentSegment).removeAnt(this);
             if (!reverse){

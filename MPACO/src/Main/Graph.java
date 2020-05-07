@@ -12,28 +12,25 @@ public class Graph {
     
     protected Vertex[] vertices; //Contains details about its edges 
     private int antFactor = 3;
+    private ArrayList<Ant> ants = new ArrayList<Ant>();
     
     public Graph(int s){
         vertices = new Vertex[s]; //Number of vertices to create the array
         
         for (int i = 0; i < s; i++){
             vertices[i] = new Vertex(1.0f, 1.0f, i);
-            vertices[i].assignAnt(antFactor);
+            for (int k = 0; k < antFactor; k++){
+                Ant tempAnt = new Ant(1.0f, 1.0f, i, vertices[i]);     
+                ants.add(tempAnt);
+                vertices[i].addAnt(tempAnt);
+            }
         }
         
-        Graph graph = new Graph(10); //Number of vertices
-        
-        graph.addEdge(vertices [0], vertices [1], 10);
-        graph.addEdge(vertices [1], vertices [2], 11);
-        graph.addEdge(vertices [1], vertices [3], 18);
-        graph.addEdge(vertices [3], vertices [4], 12);
-        graph.addEdge(vertices [3], vertices [0], 16);
-        
-        List<Edge> adjacent = graph.getAdjacent(2);
-        
-        for (Edge edge : adjacent){
-            System.out.println(edge);
-        }
+        addEdge(vertices [0], vertices [1], 10);
+        addEdge(vertices [1], vertices [2], 11);
+        addEdge(vertices [1], vertices [3], 18);
+        addEdge(vertices [3], vertices [4], 12);
+        addEdge(vertices [3], vertices [0], 16);
     }
     
     public void addEdge(Vertex s, Vertex d, double weight){ //Adding the bidirectional edges along with their weighting
@@ -47,7 +44,9 @@ public class Graph {
     }
     
     public void tick(){
-        
+        for(Ant ant : ants){
+            ant.tick();
+        }
     }
     
     public void render(Graphics g){

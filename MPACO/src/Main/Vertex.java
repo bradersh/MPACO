@@ -22,10 +22,8 @@ public class Vertex extends FeatureEntity {
         //evaporate();
     }
     
-    public void assignAnt(int antFactor){
-        for (int i = 0; i < antFactor; i++){
-            currentAnts.add(new Ant(x, y, feature, this));
-        }
+    public void assignAnt(Ant ant){
+        currentAnts.add(ant);
     }
     
     public void render(Graphics g){

@@ -8,18 +8,15 @@ import java.awt.Graphics;
  */
 public class SimulationState extends State {
 
-    private Ant ant;
-    private Vertex vertex;
-    private Edge edge;
+    private Graph graph;
     
     public SimulationState(){
-        ant = new Ant(100, 100, 1, vertex);
-        vertex = new Vertex(1.0f, 1.0f, 1);
+        graph = new Graph(5); //Number of vertices
     }
     
     @Override
     public void tick() {
-        ant.tick();
+        graph.tick();
         //vertex.tick();
         //edge.tick();
         
@@ -27,9 +24,6 @@ public class SimulationState extends State {
 
     @Override
     public void render(Graphics g) {
-        ant.render(g);
-        vertex.render(g);
-        edge.render(g);
+        graph.render(g);
     }
-    
 }
