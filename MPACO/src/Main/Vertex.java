@@ -9,19 +9,23 @@ import java.util.*;
  */
 
 public class Vertex extends FeatureEntity {
-    
-    private int id;
+
     private ArrayList<Edge> edgeList = new ArrayList<>();
     private ArrayList<Ant> currentAnts = new ArrayList<>();
     private List<Feature> featureList = new ArrayList<>();
     
     public Vertex(float x, float y, int feature){
         super(x, y);
-        this.id = id;
     }
     
     public void tick(){
         //evaporate();
+    }
+    
+    public void assignAnt(int antFactor){
+        for (int i = 0; i < antFactor; i++){
+            currentAnts.add(new Ant(x, y, feature, this));
+        }
     }
     
     public void render(Graphics g){
@@ -30,10 +34,6 @@ public class Vertex extends FeatureEntity {
     
     public void addEdge(Edge edge){
         edgeList.add(edge);
-    }
-    
-    public int getId(){
-        return id;
     }
     
     public ArrayList<Edge> getAdjacent(){
@@ -46,6 +46,10 @@ public class Vertex extends FeatureEntity {
     
     public void addAnt(Ant newAnt){
         currentAnts.add(newAnt);
+    }
+    
+    public void removeAnt(Ant newAnt){
+        currentAnts.remove(newAnt);
     }
     
     public List<Feature> getFeature(){

@@ -11,9 +11,10 @@ public class Ant extends FeatureEntity{
     
     private boolean depoisting = false; //Whether or not the ant is depositing pheremore
     private List<Ant> antList = new ArrayList<>();
-    private double antFactor = 1.0; //The factor to which the number of spawned ants is decided (an antFactor of 1 would be 1 ant for each node etc.)
     private Vertex vertex;
     private Edge chosenEdge;
+    private int currentSegment;
+    private boolean reverse;
     
     public Ant(float x, float y, int feature, Vertex vertex){
         super(x, y);
@@ -21,21 +22,62 @@ public class Ant extends FeatureEntity{
     }
     
     public void tick(){   
-        Ant ant = new Ant(x, y, feature, vertex);
-        //if ants location is a vertex :
-        
-        vertex.addAnt(ant);
-        vertex.getAnt();
-        
-        HashMap<Edge, Double> edgeProb = new HashMap<>();
-        for (Edge edge : vertex.getAdjacent()){
-            edgeProb.put(edge, evaluateEdge(edge));
+        if (vertex != null){
+            Edge bestEdge = null;
+            Double bestScore = 0.0;
+            chosenEdge = null;
+            for (Edge edge : vertex.getAdjacent()){
+                boolean temporaryReverse = (edge.getDestination() == vertex); 
+                if (evaluateEdge(edge, temporaryReverse) > bestScore){
+                    bestScore = evaluateEdge(edge, temporaryReverse);
+                    bestEdge = edge;
+                }
+            }
+            Random rand = new Random();
+            double n = rand.nextDouble();
+            if (n >= 0.2){
+                chosenEdge = bestEdge;
+            }
+            else{
+                int index = rand.nextInt(vertex.getAdjacent().size());
+                chosenEdge = vertex.getAdjacent().get(index);
+            }
+            reverse = (chosenEdge.getDestination() == vertex);
+            vertex.removeAnt(this);
+            vertex = null; 
+            if (!reverse){
+                chosenEdge.getEdgeSegment(0).addAnt(this);
+                currentSegment = 0;
+            }
+            else{
+                int lastIndex = chosenEdge.getEdgeSegmentSize() - 1;
+                chosenEdge.getEdgeSegment(lastIndex).addAnt(this);
+                currentSegment = lastIndex;
+            }
+        }
+        else if(!onLastSegment()){
+            chosenEdge.getEdgeSegment(currentSegment).removeAnt(this);
+            if (!reverse){
+                currentSegment ++;
+            }
+            if (reverse){
+                currentSegment --;
+            }
+            chosenEdge.getEdgeSegment(currentSegment).addAnt(this);
+        }
+        else{
+            chosenEdge.getEdgeSegment(currentSegment).removeAnt(this);
+            if (reverse){
+                vertex = chosenEdge.getSource();
+            }
+            if (!reverse){
+                vertex = chosenEdge.getDestination();
+            }
+            vertex.addAnt(this);
+            chosenEdge = null;
         }
         
-        
-        
-        //choose edge from hashmap here
-        chosenEdge = null; //the chosen edge
+
         //remove ant from vertext and add to first edge segment 
         
         //else
@@ -50,15 +92,28 @@ public class Ant extends FeatureEntity{
         //add to vertex ant array
     }
     
-    public double evaluateEdge(Edge edge){
-        
+    private boolean onLastSegment(){
+        if (!reverse){
+            return (currentSegment == chosenEdge.getEdgeSegmentSize() - 1);
+        }
+        else{
+            return (currentSegment == 0);
+        }
+    } 
+    
+    private double evaluateEdge(Edge edge, boolean reverse){
+        if (reverse){
+            int lastIndex = edge.getEdgeSegmentSize() - 1;
+            return 10.0 + edge.getEdgeSegment(lastIndex).getPheremone();
+        }
+        else{
+            return 10.0 + edge.getEdgeSegment(0).getPheremone();
+        }
         //each edge has a default value
         //each pheremone on the edge increases its value by 1
         //sum of all the values added together and a dice rolled between 0 and that number
         //e.g. if there are 3 paths, two with no pheremone both with a value of 10, and a pather with pheremone with a value of 20
-        //a dice will be rolled out of 40, if its 0-9 its first basic path, 10 -19 the second basic path and 20-39 its the pheremone path 
-        
-        return 0.0; //work out maths
+        //a dice will be rolled out of 40, if its 0-9 its first basic path, 10 -19 the second basic path and 20-39 its the pheremone path
     }
     
     public void render(Graphics g){

@@ -9,10 +9,18 @@ import java.util.ArrayList;
  */
 public class EdgeSegment extends Entity {
     
-    private ArrayList<Ant> antList = new ArrayList<>();
+    private ArrayList<Ant> currentAnts = new ArrayList<>();
 
     public EdgeSegment() {
         super(0, 0);
+    }
+    
+    public void addAnt(Ant newAnt){
+        currentAnts.add(newAnt);
+    }
+    
+    public void removeAnt(Ant newAnt){
+        currentAnts.remove(newAnt);
     }
 
     @Override

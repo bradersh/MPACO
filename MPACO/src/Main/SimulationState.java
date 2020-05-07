@@ -15,7 +15,6 @@ public class SimulationState extends State {
     public SimulationState(){
         ant = new Ant(100, 100, 1, vertex);
         vertex = new Vertex(1.0f, 1.0f, 1);
-        edge = new Edge(1, 2, 300);
     }
     
     @Override

@@ -11,26 +11,23 @@ import java.util.*;
 public class Graph {
     
     protected Vertex[] vertices; //Contains details about its edges 
+    private int antFactor = 3;
     
     public Graph(int s){
         vertices = new Vertex[s]; //Number of vertices to create the array
         
         for (int i = 0; i < s; i++){
             vertices[i] = new Vertex(1.0f, 1.0f, i);
+            vertices[i].assignAnt(antFactor);
         }
         
         Graph graph = new Graph(10); //Number of vertices
         
-        graph.addEdge(1, 2, 10);
-        graph.addEdge(2, 3, 11);
-        graph.addEdge(3, 4, 12);
-        graph.addEdge(3, 5, 13);
-        graph.addEdge(5, 6, 14);
-        graph.addEdge(5, 7, 18);
-        graph.addEdge(5, 8, 19);
-        graph.addEdge(7, 8, 20);
-        graph.addEdge(8, 9, 30);
-        graph.addEdge(8, 1, 9);
+        graph.addEdge(vertices [0], vertices [1], 10);
+        graph.addEdge(vertices [1], vertices [2], 11);
+        graph.addEdge(vertices [1], vertices [3], 18);
+        graph.addEdge(vertices [3], vertices [4], 12);
+        graph.addEdge(vertices [3], vertices [0], 16);
         
         List<Edge> adjacent = graph.getAdjacent(2);
         
@@ -39,11 +36,10 @@ public class Graph {
         }
     }
     
-    public void addEdge(int s, int d, double weight){ //Adding the bidirectional edges along with their weighting
+    public void addEdge(Vertex s, Vertex d, double weight){ //Adding the bidirectional edges along with their weighting
         Edge edge = new Edge(s, d, weight);
-        vertices[s].addEdge(edge);
-        Edge edge2 = new Edge(d, s, weight);
-        vertices[d].addEdge(edge2);
+        s.addEdge(edge);
+        d.addEdge(edge);
     }
     
     public ArrayList<Edge> getAdjacent(int s){ //Returns a list of the edges 
