@@ -14,8 +14,9 @@ import java.util.*;
 public class Graph {
     
     protected Vertex[] vertices; //Contains details about its edges 
-    private int antFactor = 3;
+    private int antFactor = 1;
     private ArrayList<Ant> ants = new ArrayList<Ant>();
+    private ArrayList<Edge> edgeList = new ArrayList<Edge>();
     
     public Graph(int s) throws IOException{
         vertices = new Vertex[s]; //Number of vertices to create the array
@@ -54,6 +55,7 @@ public class Graph {
         Edge edge = new Edge(s, d, weight);
         s.addEdge(edge);
         d.addEdge(edge);
+        edgeList.add(edge);
     }
     
     public ArrayList<Edge> getAdjacent(int s){ //Returns a list of the edges 
@@ -67,6 +69,14 @@ public class Graph {
     }
     
     public void render(Graphics g){
-        
+        for(Vertex vertex : vertices){
+            vertex.render(g);
+        }
+        for(Ant ant : ants){
+            ant.render(g);
+        }
+        for(Edge edge : edgeList){
+            edge.render(g);
+        }
     }
 }

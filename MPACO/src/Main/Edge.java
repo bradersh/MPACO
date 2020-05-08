@@ -33,7 +33,9 @@ public class Edge {
     }
     
     public void render(Graphics g){
-        g.drawImage(Assets.edge, 300, 300, null);
+        for(EdgeSegment edgeSegment : edgeSegmentList){
+            g.drawLine((int)source.getX() + 16, (int)source.getY() + 16, (int)destination.getX() + 16, (int)destination.getY() + 16);
+        }
     }
     
     public EdgeSegment getEdgeSegment(int id){
@@ -44,16 +46,6 @@ public class Edge {
         return edgeSegmentList.size();
     }
     
-    /*
-    public LinkedList<EdgeSegment> getEdgeSegment(){
-        return edgeSegmentList;
-    } 
-    
-    public void addSegment(EdgeSegment edgeSegment){
-        edgeSegmentList.add(edgeSegment);
-    }
-
-*/
     public Vertex getDestination() {
         return destination;
     }

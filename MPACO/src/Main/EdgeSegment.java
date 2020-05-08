@@ -25,7 +25,7 @@ public class EdgeSegment extends Entity {
 
     @Override
     public void tick() {
-        
+        evaporate();
     }
 
     @Override

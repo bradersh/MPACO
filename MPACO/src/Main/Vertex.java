@@ -19,7 +19,7 @@ public class Vertex extends FeatureEntity {
     }
     
     public void tick(){
-        //evaporate();
+        evaporate();
     }
     
     public void assignAnt(Ant ant){
@@ -27,7 +27,7 @@ public class Vertex extends FeatureEntity {
     }
     
     public void render(Graphics g){
-        g.drawImage(Assets.node, 200, 200, null);
+        g.drawImage(Assets.node, (int) x, (int) y, null);
     }
     
     public void addEdge(Edge edge){
@@ -52,5 +52,13 @@ public class Vertex extends FeatureEntity {
     
     public List<Feature> getFeature(){
         return featureList;
+    }
+    
+    public float getX(){
+        return x;
+    }
+    
+    public float getY(){
+        return y;
     }
 }

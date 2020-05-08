@@ -12,6 +12,7 @@ public class Ant extends FeatureEntity{
     private boolean depoisting = false; //Whether or not the ant is depositing pheremore
     private List<Ant> antList = new ArrayList<>();
     private Vertex vertex;
+    private Vertex lastVertex;
     private Edge chosenEdge;
     private int currentSegment;
     private boolean reverse;
@@ -43,6 +44,7 @@ public class Ant extends FeatureEntity{
                 chosenEdge = vertex.getAdjacent().get(index);
             }
             reverse = (chosenEdge.getDestination() == vertex);
+            lastVertex = vertex;
             vertex.removeAnt(this);
             vertex = null; 
             if (!reverse){
@@ -60,9 +62,12 @@ public class Ant extends FeatureEntity{
             chosenEdge.getEdgeSegment(currentSegment).removeAnt(this);
             if (!reverse){
                 currentSegment ++;
+                this.updatePosition(x + calculateForX(lastVertex.getX(), chosenEdge.getDestination().getX(), chosenEdge.getEdgeSegmentSize()), y + calculateForY(lastVertex.getY(), chosenEdge.getDestination().getY(), chosenEdge.getEdgeSegmentSize()));
             }
             if (reverse){
                 currentSegment --;
+                this.updatePosition(x + calculateForX(lastVertex.getX(), chosenEdge.getSource().getX(), chosenEdge.getEdgeSegmentSize()), y + calculateForY(lastVertex.getY(), chosenEdge.getSource().getY(), chosenEdge.getEdgeSegmentSize()));
+
             }
             chosenEdge.getEdgeSegment(currentSegment).addAnt(this);
         }
@@ -75,22 +80,9 @@ public class Ant extends FeatureEntity{
                 vertex = chosenEdge.getDestination();
             }
             vertex.addAnt(this);
+            this.updatePosition(vertex.getX(), vertex.getY());
             chosenEdge = null;
         }
-        
-
-        //remove ant from vertext and add to first edge segment 
-        
-        //else
-        //if last vertext == feature, deposit == true 
-        //int for step of edge (class variable indicating the step i.e. if weight is 10, set to 10 and reduce each tick, the njoin vertex.)
-        //remove from last segment array and add to new
-        //check for ant on edge segment
-        //repeat
-        //if
-        //last segemtn change boolean for edge
-        //boolean if its on edge if loop 
-        //add to vertex ant array
     }
     
     private boolean onLastSegment(){
@@ -110,11 +102,16 @@ public class Ant extends FeatureEntity{
         else{
             return 10.0 + edge.getEdgeSegment(0).getPheremone();
         }
-        //each edge has a default value
-        //each pheremone on the edge increases its value by 1
-        //sum of all the values added together and a dice rolled between 0 and that number
-        //e.g. if there are 3 paths, two with no pheremone both with a value of 10, and a pather with pheremone with a value of 20
-        //a dice will be rolled out of 40, if its 0-9 its first basic path, 10 -19 the second basic path and 20-39 its the pheremone path
+    }
+    
+    private float calculateForX(float x, float xx, int weight){
+        float valueX = (xx - x) / weight;;
+        return valueX;
+    }
+    
+    private float calculateForY(float y, float yy, int weight){
+        float valueY = (yy - y) / weight;
+        return valueY;
     }
     
     public void render(Graphics g){
@@ -125,11 +122,8 @@ public class Ant extends FeatureEntity{
         //location.deposit(); 
     }
     
-    private Vertex[] vertices;
-    
-    //CHECK!!!
-    public ArrayList<Ant> getAnt(int s){ //Returns a list of the edges 
-        vertices = new Vertex[s];
-        return vertices[s].getAnt();
+    public void updatePosition(float newX, float newY){
+        x = newX;
+        y = newY;
     }
 }

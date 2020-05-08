@@ -2,16 +2,17 @@ package Main;
 
 import java.awt.Graphics;
 import java.awt.image.BufferStrategy;
+import java.io.IOException;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 /**
- *
  * @author BradleyH
  */
+
 public class Simulation implements Runnable{ //Runnable allows the game to run on a thread
     
-    private boolean running = false;
+    private boolean running = false; //Indicates if the running state is true or false, helps with preventing errors 
     private Display display;
     public int width, height;
     public String title;
@@ -20,8 +21,8 @@ public class Simulation implements Runnable{ //Runnable allows the game to run o
     private Graphics g;
     
     //Declares it as a state but can be initialised to any type of state
-    private State simulationState;  
-    private State settingsState;
+    private State simulationState; //Tha Main state for the simulation to run on
+    private State settingsState; //Could be utilised in the future to allow for a setting state which can alter the parameters 
     
     public Simulation(String title, int width, int height){
         this.width = width;
@@ -29,13 +30,12 @@ public class Simulation implements Runnable{ //Runnable allows the game to run o
         this.title = title;
     }
     
-    private void init(){
+    private void init() throws IOException{
         display = new Display(title, width, height);
         Assets.init(); //Loads in all of the sprite sheet objects
-        
         simulationState = new SimulationState();
         settingsState = new SettingsState();
-        State.setState(simulationState);
+        State.setState(simulationState); //Starts the state within the simulation state, would be set to settings state in future
     }
     
     private void tick(){ //Responsible for the ticks everything runs off
@@ -62,9 +62,13 @@ public class Simulation implements Runnable{ //Runnable allows the game to run o
     }
     
     public void run(){
-        init(); //Calls the init method only once to initialise the graphics 
+        try {
+            init(); //Calls the init method only once to initialise the graphics 
+        } catch (IOException ex) {
+            Logger.getLogger(Simulation.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
-        int fps = 60; //Amount of times tick and render method are called every second
+        int fps = 10; //Amount of times tick and render method are called every second
         double timePerTick = 1000000000 / fps; //Maximum amount of time to run tick and render methods to achieve desired 60fps 
         double delta = 0; //Amount of time until tick and render methods need to be called
         long now; //Current time of the computer 

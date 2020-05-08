@@ -18,9 +18,6 @@ public class SimulationState extends State {
     @Override
     public void tick() {
         graph.tick();
-        //vertex.tick();
-        //edge.tick();
-        
     }
 
     @Override

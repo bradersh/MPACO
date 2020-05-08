@@ -21,7 +21,7 @@ public abstract class Entity {
     public abstract void render(Graphics g);
     
     public void deposit(){
-        pheremone++;
+        pheremone = (pheremone + 5);
     }
     
     public void evaporate(){
