@@ -12,7 +12,7 @@ public class SimulationState extends State {
     private Graph graph;
     
     public SimulationState() throws IOException{
-        graph = new Graph(5); //Number of vertices
+        graph = new Graph(13); //Number of vertices
     }
     
     @Override
