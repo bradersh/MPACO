@@ -19,7 +19,7 @@ public class Assets {
         node3 = sheet.crop(width * 2, 0, width, height);
         node4 = sheet.crop(width * 3, 0, width, height);
         ant1 = sheet.crop(0, height, width, height);
-        ant2 = sheet.crop(width, height * 2, width, height);
+        ant2 = sheet.crop(width, height, width, height);
         ant3 = sheet.crop(width * 2, height, width, height);
         ant4 = sheet.crop(width * 3, height, width, height);
     }

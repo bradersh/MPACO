@@ -68,7 +68,7 @@ public class Simulation implements Runnable{ //Runnable allows the game to run o
             Logger.getLogger(Simulation.class.getName()).log(Level.SEVERE, null, ex);
         }
         
-        int fps = 60; //Amount of times tick and render method are called every second
+        int fps = 15; //Amount of times tick and render method are called every second
         double timePerTick = 1000000000 / fps; //Maximum amount of time to run tick and render methods to achieve desired 60fps 
         double delta = 0; //Amount of time until tick and render methods need to be called
         long now; //Current time of the computer 

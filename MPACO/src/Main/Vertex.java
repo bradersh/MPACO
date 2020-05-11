@@ -26,12 +26,16 @@ public class Vertex extends FeatureEntity {
         currentAnts.add(ant);
     }
     
-    public void render(Graphics g){
+    public void render(Graphics g){ //Casted the floats to ints
         switch (this.feature){
-            case(1):g.drawImage(Assets.node1, (int) x, (int) y, null);//Casted the floats to ints
+            case(1):g.drawImage(Assets.node1, (int) x, (int) y, null);
+            break;
             case(2):g.drawImage(Assets.node2, (int) x, (int) y, null);
+            break;
             case(3):g.drawImage(Assets.node3, (int) x, (int) y, null);
+            break;
             case(4):g.drawImage(Assets.node4, (int) x, (int) y, null);
+            break;
         }
     }
     
