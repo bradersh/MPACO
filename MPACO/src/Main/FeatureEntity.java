@@ -1,7 +1,6 @@
 package Main;
 
 /**
- *
  * @author BradleyH
  */
 public abstract class FeatureEntity extends Entity {

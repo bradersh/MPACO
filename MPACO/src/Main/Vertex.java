@@ -28,10 +28,10 @@ public class Vertex extends FeatureEntity {
     
     public void render(Graphics g){
         switch (this.feature){
-            case(1):g.drawImage(Assets.node, (int) x, (int) y, null);//Casted the floats to ints
-            case(2):g.drawImage(Assets.node, (int) x, (int) y, null);
-            case(3):g.drawImage(Assets.node, (int) x, (int) y, null);
-            case(4):g.drawImage(Assets.node, (int) x, (int) y, null);
+            case(1):g.drawImage(Assets.node1, (int) x, (int) y, null);//Casted the floats to ints
+            case(2):g.drawImage(Assets.node2, (int) x, (int) y, null);
+            case(3):g.drawImage(Assets.node3, (int) x, (int) y, null);
+            case(4):g.drawImage(Assets.node4, (int) x, (int) y, null);
         }
     }
     
