@@ -1,6 +1,7 @@
 package Main;
 
 import java.awt.Graphics;
+import java.util.ArrayList;
 
 /**
  *
@@ -9,7 +10,9 @@ import java.awt.Graphics;
 public abstract class Entity {
     
     protected float x, y;
-    protected int pheremone = 0;
+    protected ArrayList<Pheremone> pheremone = new ArrayList<>();
+    protected int pheremoneEvaporateCount = 0;
+    protected int maximumCount = 10;
     
     public Entity(float x, float y){
         this.x = x;
@@ -20,16 +23,29 @@ public abstract class Entity {
     
     public abstract void render(Graphics g);
     
-    public void deposit(){
-        pheremone = (pheremone + 5);
+    public void deposit(int feature){
+        for (int i = 0; i < 10; i++){
+            pheremone.add(new Pheremone(feature));
+        }
     }
     
     public void evaporate(){
-        pheremone--;
+        if (pheremoneEvaporateCount == maximumCount){
+            pheremone.remove(0);
+            pheremoneEvaporateCount = 0;
+        }
+        else{
+            pheremoneEvaporateCount ++;
+        }
     }
     
-    public int getPheremone(){
-        return pheremone;
-    }
-    
+    public int getPheremone(int feature){
+        int pheremoneCount = 0;
+        for (Pheremone pheremone : pheremone){
+            if (pheremone.getFeature() == feature){
+                pheremoneCount++;
+            }
+        }
+        return pheremoneCount;
+    } 
 }

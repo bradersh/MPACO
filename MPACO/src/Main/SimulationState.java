@@ -9,7 +9,7 @@ import java.io.IOException;
  */
 public class SimulationState extends State {
 
-    private Graph graph;
+    private final Graph graph;
     
     public SimulationState() throws IOException{
         graph = new Graph(13); //Number of vertices

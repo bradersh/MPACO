@@ -12,10 +12,10 @@ public class Vertex extends FeatureEntity {
 
     private ArrayList<Edge> edgeList = new ArrayList<>();
     private ArrayList<Ant> currentAnts = new ArrayList<>();
-    private List<Feature> featureList = new ArrayList<>();
     
     public Vertex(float x, float y, int feature){
         super(x, y);
+        this.feature = feature;
     }
     
     public void tick(){
@@ -27,7 +27,12 @@ public class Vertex extends FeatureEntity {
     }
     
     public void render(Graphics g){
-        g.drawImage(Assets.node, (int) x, (int) y, null);
+        switch (this.feature){
+            case(1):g.drawImage(Assets.node, (int) x, (int) y, null);//Casted the floats to ints
+            case(2):g.drawImage(Assets.node, (int) x, (int) y, null);
+            case(3):g.drawImage(Assets.node, (int) x, (int) y, null);
+            case(4):g.drawImage(Assets.node, (int) x, (int) y, null);
+        }
     }
     
     public void addEdge(Edge edge){
@@ -48,10 +53,6 @@ public class Vertex extends FeatureEntity {
     
     public void removeAnt(Ant newAnt){
         currentAnts.remove(newAnt);
-    }
-    
-    public List<Feature> getFeature(){
-        return featureList;
     }
     
     public float getX(){

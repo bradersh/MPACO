@@ -8,9 +8,7 @@ import java.util.*;
  * @author BradleyH
  */
 public class Ant extends FeatureEntity{
-    
-    private boolean depoisting = false; //Whether or not the ant is depositing pheremore
-    private List<Ant> antList = new ArrayList<>();
+   
     private Vertex vertex;
     private Vertex lastVertex;
     private Edge chosenEdge;
@@ -20,12 +18,14 @@ public class Ant extends FeatureEntity{
     public Ant(float x, float y, int feature, Vertex vertex){
         super(x, y);
         this.vertex = vertex;
+        this.feature = feature;
     }
     
+    @Override
     public void tick(){   
         if (vertex != null){
             Edge bestEdge = null;
-            Double bestScore = 0.0;
+            Double bestScore = -1.0;
             chosenEdge = null;
             for (Edge edge : vertex.getAdjacent()){
                 boolean temporaryReverse = (edge.getDestination() == vertex); 
@@ -36,7 +36,7 @@ public class Ant extends FeatureEntity{
             }
             Random rand = new Random();
             double n = rand.nextDouble();
-            if (n >= 0.2){
+            if (n >= 0.4){
                 chosenEdge = bestEdge;
             }
             else{
@@ -45,8 +45,7 @@ public class Ant extends FeatureEntity{
             }
             reverse = (chosenEdge.getDestination() == vertex);
             lastVertex = vertex;
-            vertex.removeAnt(this);
-            vertex = null; 
+            vertex.removeAnt(this); 
             if (!reverse){
                 chosenEdge.getEdgeSegment(0).addAnt(this);
                 currentSegment = 0;
@@ -56,8 +55,11 @@ public class Ant extends FeatureEntity{
                 chosenEdge.getEdgeSegment(lastIndex).addAnt(this);
                 currentSegment = lastIndex;
             }
-            System.out.println(chosenEdge);
-        }        
+            if (lastVertex.getFeature() == this.getFeature()){
+                vertex.deposit(this.feature);
+            }
+            vertex = null;
+        }
         else if(!onLastSegment()){
             chosenEdge.getEdgeSegment(currentSegment).removeAnt(this);
             if (!reverse){
@@ -70,6 +72,9 @@ public class Ant extends FeatureEntity{
 
             }
             chosenEdge.getEdgeSegment(currentSegment).addAnt(this);
+            if (lastVertex.getFeature() == this.getFeature()){
+                chosenEdge.getEdgeSegment(currentSegment).deposit(this.feature);
+            }
         }
         else{
             chosenEdge.getEdgeSegment(currentSegment).removeAnt(this);
@@ -97,10 +102,10 @@ public class Ant extends FeatureEntity{
     private double evaluateEdge(Edge edge, boolean reverse){
         if (reverse){
             int lastIndex = edge.getEdgeSegmentSize() - 1;
-            return 10.0 + edge.getEdgeSegment(lastIndex).getPheremone();
+            return edge.getEdgeSegment(lastIndex).getPheremone(this.getFeature());
         }
         else{
-            return 10.0 + edge.getEdgeSegment(0).getPheremone();
+            return edge.getEdgeSegment(0).getPheremone(this.getFeature());
         }
     }
     
@@ -115,11 +120,12 @@ public class Ant extends FeatureEntity{
     }
     
     public void render(Graphics g){
-        g.drawImage(Assets.ant, (int) x, (int) y, null);//Casted the floats to ints
-    }
-    
-    public void deposit(){
-        //location.deposit(); 
+        switch (this.feature){
+            case(1):g.drawImage(Assets.ant, (int) x, (int) y, null);//Casted the floats to ints
+            case(2):g.drawImage(Assets.ant, (int) x, (int) y, null);
+            case(3):g.drawImage(Assets.ant, (int) x, (int) y, null);
+            case(4):g.drawImage(Assets.ant, (int) x, (int) y, null);
+        }
     }
     
     public void updatePosition(float newX, float newY){

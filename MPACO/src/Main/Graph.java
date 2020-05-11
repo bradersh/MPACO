@@ -14,9 +14,9 @@ import java.util.*;
 public class Graph {
     
     protected Vertex[] vertices; //Contains details about its edges 
-    private int antFactor = 1;
-    private ArrayList<Ant> ants = new ArrayList<Ant>();
-    private ArrayList<Edge> edgeList = new ArrayList<Edge>();
+    private final int antFactor = 1;
+    private final ArrayList<Ant> ants = new ArrayList<>();
+    private final ArrayList<Edge> edgeList = new ArrayList<>();
     
     public Graph(int s) throws IOException{
         vertices = new Vertex[s]; //Number of vertices to create the array

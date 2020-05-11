@@ -11,4 +11,8 @@ public abstract class FeatureEntity extends Entity {
     public FeatureEntity(float x, float y) {
         super(x, y);
     }
+    
+    public int getFeature(){
+        return feature;
+    }
 }
