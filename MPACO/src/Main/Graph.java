@@ -7,20 +7,20 @@ import java.io.IOException;
 import java.util.*;
 
 /**
- *
  * @author BradleyH
  */
 
 public class Graph {
     
     protected Vertex[] vertices; //Contains details about its edges 
-    private final int antFactor = 1;
+    private final int antFactor = 5; //Dictates how many ants will spawn per node
     private final ArrayList<Ant> ants = new ArrayList<>();
     private final ArrayList<Edge> edgeList = new ArrayList<>();
     
     public Graph(int s) throws IOException{
         vertices = new Vertex[s]; //Number of vertices to create the array
         
+        //Takes a .csv file and inputs the x, y and feature values it contains into creating the vertices and ants
         BufferedReader csvReader = new BufferedReader(new FileReader("src/res/config/vertices.csv"));
         String row;
         int i = 0;
@@ -39,6 +39,7 @@ public class Graph {
         }
         csvReader.close();
         
+        //takes a .csv file and takes the source, destination and weigth values and uses that to create the edges 
         csvReader = new BufferedReader(new FileReader("src/res/config/edge.csv"));
         row = "";
         while ((row = csvReader.readLine()) != null) {
@@ -51,6 +52,7 @@ public class Graph {
         csvReader.close();   
     }
     
+    //Creates the edges and adds them into the edgelist
     public void addEdge(Vertex s, Vertex d, double weight){ //Adding the bidirectional edges along with their weighting
         Edge edge = new Edge(s, d, weight);
         s.addEdge(edge);
@@ -68,6 +70,7 @@ public class Graph {
         }
     }
     
+    //Runs through each edge, ant and vertex and calls the respective reder methods 
     public void render(Graphics g){
         for(Vertex vertex : vertices){
             vertex.render(g);

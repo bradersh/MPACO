@@ -129,6 +129,7 @@ public class Ant extends FeatureEntity{
     }
     
     //Mthod used to render the different ants based on thier feature
+    @Override
     public void render(Graphics g){//Casted the floats to ints
         switch (this.feature){
             case(1):g.drawImage(Assets.ant1, (int) x, (int) y, null);

@@ -10,5 +10,4 @@ public class Launcher {
         Simulation simulation = new Simulation("MPACO", 800, 800); //Creates the simulation object with a width and height for the display 
         simulation.start(); //Starts the simulation loop
     }
-    
 }

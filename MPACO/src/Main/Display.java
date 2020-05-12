@@ -5,15 +5,15 @@ import java.awt.Canvas;
 import java.awt.Dimension;
 
 /**
- *
  * @author BradleyH
  */
+
 public class Display {
     
     private JFrame frame;
     private Canvas canvas;
-    private String title;
-    private int width, height;
+    private final String title;
+    private final int width, height;
     
     public Display(String title, int width, int height){
         this.title = title;
@@ -22,6 +22,7 @@ public class Display {
         createDisplay();
     }
     
+    //Creates a display with the required dimensions and some basic additional QOL functionality
     private void createDisplay(){
         frame = new JFrame(title);
         frame.setSize(width, height);

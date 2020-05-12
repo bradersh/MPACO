@@ -4,12 +4,12 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 
 /**
- *
  * @author BradleyH
  */
+
 public class EdgeSegment extends Entity {
     
-    private ArrayList<Ant> currentAnts = new ArrayList<>();
+    private ArrayList<Ant> currentAnts = new ArrayList<>(); //Stores the current ants on each segemtn to implement interactions 
 
     public EdgeSegment() {
         super(0, 0);

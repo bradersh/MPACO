@@ -61,6 +61,7 @@ public class Simulation implements Runnable{ //Runnable allows the game to run o
         g.dispose(); //Graphics object is cleard properly 
     }
     
+    @Override
     public void run(){
         try {
             init(); //Calls the init method only once to initialise the graphics 
@@ -94,7 +95,6 @@ public class Simulation implements Runnable{ //Runnable allows the game to run o
                 ticks = 0;
                 timer = 0;
             }
-            
         }
         stop();
     }
@@ -117,5 +117,4 @@ public class Simulation implements Runnable{ //Runnable allows the game to run o
             Logger.getLogger(Simulation.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
 }

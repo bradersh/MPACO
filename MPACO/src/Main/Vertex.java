@@ -4,13 +4,12 @@ import java.awt.Graphics;
 import java.util.*;
 
 /**
- *
  * @author BradleyH
  */
 
 public class Vertex extends FeatureEntity {
 
-    private ArrayList<Edge> edgeList = new ArrayList<>();
+    private final ArrayList<Edge> edgeList = new ArrayList<>();
     private ArrayList<Ant> currentAnts = new ArrayList<>();
     
     public Vertex(float x, float y, int feature){
@@ -18,6 +17,7 @@ public class Vertex extends FeatureEntity {
         this.feature = feature;
     }
     
+    @Override
     public void tick(){
         evaporate();
     }
@@ -26,6 +26,7 @@ public class Vertex extends FeatureEntity {
         currentAnts.add(ant);
     }
     
+    @Override
     public void render(Graphics g){ //Casted the floats to ints
         switch (this.feature){
             case(1):g.drawImage(Assets.node1, (int) x, (int) y, null);

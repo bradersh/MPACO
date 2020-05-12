@@ -4,9 +4,9 @@ import java.awt.Graphics;
 import java.io.IOException;
 
 /**
- *
  * @author BradleyH
  */
+
 public class SimulationState extends State {
 
     private final Graph graph;

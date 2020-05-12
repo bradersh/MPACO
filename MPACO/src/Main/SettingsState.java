@@ -3,11 +3,10 @@ package Main;
 import java.awt.Graphics;
 
 /**
- *
  * @author BradleyH
  */
-public class SettingsState extends State{
 
+public class SettingsState extends State{
     
     public SettingsState(){
         
@@ -22,5 +21,4 @@ public class SettingsState extends State{
     public void render(Graphics g) {
         
     }
-    
 }

@@ -3,9 +3,9 @@ package Main;
 import java.awt.Graphics;
 
 /**
- *
  * @author BradleyH
  */
+
 public abstract class State {
     
     //Manages game state but is not related to the abstract class
@@ -23,5 +23,4 @@ public abstract class State {
     public abstract void tick();
     
     public abstract void render(Graphics g);
-    
 }
