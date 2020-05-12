@@ -4,9 +4,9 @@ import java.awt.Graphics;
 import java.util.*;
 
 /**
- *
  * @author BradleyH
  */
+
 public class Ant extends FeatureEntity{
    
     private Vertex vertex;
@@ -21,8 +21,14 @@ public class Ant extends FeatureEntity{
         this.feature = feature;
     }
     
+    /*
+    * This is the main tick method for the ant, it will decided which route to 
+    * take if on a vertex, otherwise it will increment the ant down the edge 
+    * segment, all whilst depositing pheremone if the last vetext matched its
+    * feature 
+    */
     @Override
-    public void tick(){   
+    public void tick(){ 
         if (vertex != null){
             Edge bestEdge = null;
             Double bestScore = -1.0;
@@ -36,7 +42,7 @@ public class Ant extends FeatureEntity{
             }
             Random rand = new Random();
             double n = rand.nextDouble();
-            if (n >= 0.4){
+            if (n >= 0.3){
                 chosenEdge = bestEdge;
             }
             else{
@@ -69,7 +75,6 @@ public class Ant extends FeatureEntity{
             if (reverse){
                 currentSegment --;
                 this.updatePosition(x + calculateForX(lastVertex.getX(), chosenEdge.getSource().getX(), chosenEdge.getEdgeSegmentSize()), y + calculateForY(lastVertex.getY(), chosenEdge.getSource().getY(), chosenEdge.getEdgeSegmentSize()));
-
             }
             chosenEdge.getEdgeSegment(currentSegment).addAnt(this);
             if (lastVertex.getFeature() == this.getFeature()){
@@ -90,6 +95,7 @@ public class Ant extends FeatureEntity{
         }
     }
     
+    //Simple method indicating if the ant is on the last edge segment, to indicate that it should be joining a vertex
     private boolean onLastSegment(){
         if (!reverse){
             return (currentSegment == chosenEdge.getEdgeSegmentSize() - 1);
@@ -99,6 +105,7 @@ public class Ant extends FeatureEntity{
         }
     } 
     
+    //Method to decide which route the ant should take, influenced by the right amount of matching pheremone 
     private double evaluateEdge(Edge edge, boolean reverse){
         if (reverse){
             int lastIndex = edge.getEdgeSegmentSize() - 1;
@@ -109,16 +116,19 @@ public class Ant extends FeatureEntity{
         }
     }
     
+    //Method to help draw the ant for x in the direction its travelling regardless of direction 
     private float calculateForX(float x, float xx, int weight){
         float valueX = (xx - x) / weight;;
         return valueX;
     }
     
+    //Method to help draw the ant for y in the direction its travelling regardless of direction 
     private float calculateForY(float y, float yy, int weight){
         float valueY = (yy - y) / weight;
         return valueY;
     }
     
+    //Mthod used to render the different ants based on thier feature
     public void render(Graphics g){//Casted the floats to ints
         switch (this.feature){
             case(1):g.drawImage(Assets.ant1, (int) x, (int) y, null);
@@ -132,6 +142,7 @@ public class Ant extends FeatureEntity{
         }
     }
     
+    //Updates the ants position so that it can be drawn in the correct location
     public void updatePosition(float newX, float newY){
         x = newX;
         y = newY;
